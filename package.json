@@ -1,0 +1,24 @@
+{
+  "name": "googly",
+  "version": "1.0.0",
+  "description": "Investment portfolio manager",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dewana-dewan/googly.git"
+  },
+  "keywords": [
+    "investment",
+    "stocks",
+    "finance"
+  ],
+  "author": "Aditya Dewan, Prince Nanda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dewana-dewan/googly/issues"
+  },
+  "homepage": "https://github.com/dewana-dewan/googly#readme"
+}
