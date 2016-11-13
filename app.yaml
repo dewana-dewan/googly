@@ -5,3 +5,13 @@ threadsafe: true
 handlers:
 - url: /.*
   script: main.app
+
+
+libraries:
+- name: jinja2
+  version: latest
+
+
+skip_files:
+- node_modules/
+- .git/
