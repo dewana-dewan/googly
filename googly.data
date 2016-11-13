@@ -1,0 +1,28 @@
+Details for use case diagram.
+
+Actor:
+	- client(bank account holder)
+	- bank
+	- Market
+
+Use Cases:
+	- Account login/creation
+	- Basic withdraw/deposit/transfer in bank account
+	- Buy/sell/hold stocks
+
+	- Account management
+	- Market data processing and storage
+
+	- Data retrieval using API
+
+
+Client comes to the login page. Logs into his account using account number and password provided by the bank. He sees all his account info on that page.
+He can deposit money or withdraw money from his account also.
+He can transfer funds to another account in the bank
+He sees his investment portfolio on the page.
+He can click on his favorite stocks to see their history
+He will decide whether to buy/sell/hold a stock.
+If he buys a stock the amount will be deducted from his account.
+If he sells a stock the amount will be credited to his account.
+He logs out of his account.
+
