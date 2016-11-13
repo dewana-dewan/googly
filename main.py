@@ -2,6 +2,7 @@ import webapp2
 import jinja2
 import os
 import re
+import random
 import hashlib
 import hmac
 
@@ -29,20 +30,69 @@ class BaseHandler(webapp2.RequestHandler):
 
     def render(self, template, **kw):
         self.write(self.render_str(template, **kw))
-	
-	
 
+    def set_cookie(self, name, val):
+    	hashed = make_secure_val(val)
+    	cooked = name +'=' + hashed + ';Path=/'
+    	self.response.headers.add_header('Set-Cookie',str(cooked))
+
+    def read_secure_cookie(self, name):
+        cookie_val = self.request.cookies.get(name)
+        if cookie_val and check_secure_val(cookie_val):
+        	return cookie_val
+
+    def login(self, user):
+        self.set_cookie('user_id', str(user.key().id()))
+
+    def logout(self):
+        self.response.headers.add_header('Set-Cookie', 'user_id=; Path=/')
+
+    def initialize(self, *a, **kw):
+        webapp2.RequestHandler.initialize(self, *a, **kw)
+        uid = self.read_secure_cookie('user_id')
+
+        if uid != None:
+        	uid = check_secure_val(uid)
+        	self.username = User.by_id(int(uid)).name
 
 
 #base template end
 
+secret='hiiis'
+letters='abcdefghijklmnopqrstuvwxyz'
+
+#hashing and salt stuff
+def make_salt(length = 5):
+    return ''.join(random.choice(letters) for x in xrange(length))
+
+def make_pw_hash(name, pw, salt = None):
+    if not salt:
+        salt = make_salt()
+    h = hashlib.sha256(name + pw + salt).hexdigest()
+    return '%s,%s' % (salt, h)
+
+def valid_pw(name, password, h):
+    salt = h.split(',')[0]
+    return h == make_pw_hash(name, password, salt)
+
+def make_secure_val(val):
+    return '%s|%s' % (val, hmac.new(secret, val).hexdigest())
+
+def check_secure_val(secure_val):
+    val = secure_val.split('|')[0]
+    if secure_val == make_secure_val(val):
+        return val
+
+#hashing stuff ends
+
 class User(db.Model):
 	name = db.StringProperty(required=True)
-	pw = db.StringProperty(required=True)
+	pw_hash = db.StringProperty(required=True)
 	email = db.StringProperty()
+
 	@classmethod
 	def by_id(cls, uid):
-		return User.get_by_id(uid, parent = users_key())
+		return User.get_by_id(uid)
 	@classmethod
 	def by_name(cls, name):
 		u = User.all().filter('name =', name).get()
@@ -50,9 +100,16 @@ class User(db.Model):
 
 	@classmethod
 	def register(cls, name, pw, email = None):
+		pw_hash = make_pw_hash(name, pw)
 		return User(name = name,
-                    pw = pw,
+                    pw_hash = pw_hash,
                     email = email)
+	@classmethod
+	def login(cls, name, pw):
+		u = cls.by_name(name)
+		# print(u)
+		if u and valid_pw(name, pw, u.pw_hash):
+			return u
 
 #functions for basic sign-up
 
@@ -107,33 +164,58 @@ class SignUp(BaseHandler):
         	# cooked = 'name=' + uname + ';Path=/'
         	# self.response.headers.add_header('Set-Cookie',str(cooked))
         	# self.set_cook('name', uname)
-        	u = User.by_name(self.username)
+        	u = User.by_name(uname)
 	        if u:
 	            msg = 'That user already exists.'
 	            self.render('signup-form.html', error_username = msg)
 	        else:
-	        	cooked = 'name=' + uname + ';Path=/'
-        		self.response.headers.add_header('Set-Cookie',str(cooked))
-	            u = User.register(uname, password, email)
-	            u.put()
-	            self.redirect('/welcome')
-
-	            # self.login(u)
+	        	# cooked = 'name=' + uname + ';Path=/'
+	        	# self.response.headers.add_header('Set-Cookie',str(cooked))
+	        	self.set_cookie('name',uname)
+	        	u = User.register(uname, password, email)
+	        	u.put()
+	        	self.redirect('/welcome')
+				# self.login(u)
 	            # self.redirect('/blog')
 
 
 
 class Welcome(BaseHandler):
     def get(self):
-        username = self.request.cookies.get('name')
+        # username = self.request.cookies.get('name')
+        # asli_name = username.split('|')[0]
+        asli_name = self.username
         # if valid_username(username):
-        if username:            
-            self.render('welcome.html', username = username)
+        if asli_name:            
+            self.render('welcome.html', username = asli_name)
         else:
             self.redirect('/sign_up')
 
+class Login(BaseHandler):
+	def get(self):
+		# if self.username != None:
+		# 	self.redirect('/welcome')
+		self.render('login-form.html')
+	
+	def post(self):
+		uname=self.request.get('username')
+   		passwd=self.request.get('password')
+   		u=User.login(uname, passwd)
+   		if u:
+   			self.login(u)
+   			self.redirect('/welcome')
+   		else:
+			msg = 'Invalid login'
+			self.render('login-form.html', error = msg)
+
+class LogOut(BaseHandler):
+	def get(self):
+		self.logout()
+		self.redirect('/login')
+
 app = webapp2.WSGIApplication([
     ('/sign_up', SignUp),
-    # ('/login', Login),	
+    ('/login', Login),	
+    ('/logout', LogOut),	
     ('/welcome', Welcome)
 ], debug=True)
