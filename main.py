@@ -17,7 +17,8 @@ def render_str(template, **params):
     t = jinja_env.get_template(template)
     return t.render(params)
 
-	
+cook=''
+
 class BaseHandler(webapp2.RequestHandler):
     def write(self, *a, **kw):
         self.response.out.write(*a, **kw)
@@ -28,6 +29,10 @@ class BaseHandler(webapp2.RequestHandler):
 
     def render(self, template, **kw):
         self.write(self.render_str(template, **kw))
+	
+	
+
+
 
 #base template end
 
@@ -35,6 +40,19 @@ class User(db.Model):
 	name = db.StringProperty(required=True)
 	pw = db.StringProperty(required=True)
 	email = db.StringProperty()
+	@classmethod
+	def by_id(cls, uid):
+		return User.get_by_id(uid, parent = users_key())
+	@classmethod
+	def by_name(cls, name):
+		u = User.all().filter('name =', name).get()
+		return u
+
+	@classmethod
+	def register(cls, name, pw, email = None):
+		return User(name = name,
+                    pw = pw,
+                    email = email)
 
 #functions for basic sign-up
 
@@ -59,7 +77,13 @@ class SignUp(BaseHandler):
     	password = self.request.get('password')
     	verify = self.request.get('verify')
     	email = self.request.get('email')
+
+    	# self.username = uname
+    	# self.password = password
+    	# self.email = email
+    	
     	have_error = False
+    	
     	params = dict(username = uname,
                       email = email)
     	if not valid_username(uname):
@@ -80,17 +104,36 @@ class SignUp(BaseHandler):
         if have_error:
             self.render('signup-form.html', **params)
         else:
-            self.redirect('/welcome?username=' + uname)
+        	# cooked = 'name=' + uname + ';Path=/'
+        	# self.response.headers.add_header('Set-Cookie',str(cooked))
+        	# self.set_cook('name', uname)
+        	u = User.by_name(self.username)
+	        if u:
+	            msg = 'That user already exists.'
+	            self.render('signup-form.html', error_username = msg)
+	        else:
+	        	cooked = 'name=' + uname + ';Path=/'
+        		self.response.headers.add_header('Set-Cookie',str(cooked))
+	            u = User.register(uname, password, email)
+	            u.put()
+	            self.redirect('/welcome')
+
+	            # self.login(u)
+	            # self.redirect('/blog')
+
+
 
 class Welcome(BaseHandler):
     def get(self):
-        username = self.request.get('username')
-        if valid_username(username):
+        username = self.request.cookies.get('name')
+        # if valid_username(username):
+        if username:            
             self.render('welcome.html', username = username)
         else:
             self.redirect('/sign_up')
 
 app = webapp2.WSGIApplication([
     ('/sign_up', SignUp),
+    # ('/login', Login),	
     ('/welcome', Welcome)
 ], debug=True)
