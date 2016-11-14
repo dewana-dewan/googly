@@ -54,6 +54,8 @@ class BaseHandler(webapp2.RequestHandler):
         if uid != None:
         	uid = check_secure_val(uid)
         	self.username = User.by_id(int(uid)).name
+        else:
+        	self.username = None
 
 
 #base template end
@@ -89,6 +91,7 @@ class User(db.Model):
 	name = db.StringProperty(required=True)
 	pw_hash = db.StringProperty(required=True)
 	email = db.StringProperty()
+	
 
 	@classmethod
 	def by_id(cls, uid):
@@ -171,9 +174,10 @@ class SignUp(BaseHandler):
 	        else:
 	        	# cooked = 'name=' + uname + ';Path=/'
 	        	# self.response.headers.add_header('Set-Cookie',str(cooked))
-	        	self.set_cookie('name',uname)
+	        	# self.set_cookie('name',uname)
 	        	u = User.register(uname, password, email)
 	        	u.put()
+	        	self.login(u)
 	        	self.redirect('/welcome')
 				# self.login(u)
 	            # self.redirect('/blog')
@@ -184,10 +188,10 @@ class Welcome(BaseHandler):
     def get(self):
         # username = self.request.cookies.get('name')
         # asli_name = username.split('|')[0]
-        asli_name = self.username
+        # self.username
         # if valid_username(username):
-        if asli_name:            
-            self.render('welcome.html', username = asli_name)
+        if self.username != None:            
+            self.render('welcome.html', username = self.username)
         else:
             self.redirect('/sign_up')
 
@@ -213,9 +217,15 @@ class LogOut(BaseHandler):
 		self.logout()
 		self.redirect('/login')
 
+class SStock(BaseHandler):
+	def get(self):
+		sname = self.request.get('sname')
+		self.render('stock_page.html',stock_name=sname)
+
 app = webapp2.WSGIApplication([
     ('/sign_up', SignUp),
     ('/login', Login),	
     ('/logout', LogOut),	
-    ('/welcome', Welcome)
+    ('/welcome', Welcome),
+    ('/stock_info', SStock)
 ], debug=True)
