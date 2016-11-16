@@ -32,7 +32,7 @@ function start(argument) {
 			// document.getElementById('imgaa').src = result;
 		}
 	});
-	urll = 'http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=858&height=392&showLastClose=1&headerType=quote&symbol=' + stock_name + '&duration=20&lowers=volume&headertype=none'
+	urll = 'http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=858&height=392&showLastClose=1&headerType=quote&symbol=' + stock_name + '.NS&duration=20&lowers=volume&headertype=none'
 	document.write('<img src=' + urll + '>');
 };
 
