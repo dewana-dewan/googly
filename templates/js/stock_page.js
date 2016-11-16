@@ -1,5 +1,7 @@
 document.onLoad =	start();
 
+var dat1;
+var dat2;
 	
 function start(argument) {
 	stock_name = document.getElementById('stock_name').innerHTML;
@@ -12,6 +14,7 @@ function start(argument) {
 		headers:{'Access-Control-Allow-Origin':'*'},
 		success:function( data ) {
 			// data = data.replace(change,'');
+			dat1 = data[0];
 			console.log(data[0]);
 			// var json = JSON.parse(data);
 			// console.log(json);
@@ -27,25 +30,25 @@ function start(argument) {
 	    dataType:'jsonp',
 		headers:{'Access-Control-Allow-Origin':'*'}, 
 		success: function(result) {
-			console.log(result)
+			dat2 = result['QuickQuoteResult']['QuickQuote']
+			console.log(dat2);
+			display_stock(dat1, dat2)
 			// document.write('<img src=' + result + '>');
 			// document.getElementById('imgaa').src = result;
 		}
 	});
-	urll = 'http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=858&height=392&showLastClose=1&headerType=quote&symbol=' + stock_name + '.NS&duration=20&lowers=volume&headertype=none'
-	document.write('<img src=' + urll + '>');
 };
 
-function display_stock(st_data){
-	elem = document.createElement('div');
-	elem.className = 'stock_f_data';
-	c1 = document.createElement('h2');
-	c1.className = 'st_head'	
-	c1.innerHTML = st_data[0]['t']
-	c1 = document.createElement('h2');
-	c1.className = 'st_head'	
-	c1 = document.createElement('h2');
-	c1.className = 'st_head'	
+function display_stock(dat1, dat2){
+	urll = chart_url(20);
+	// document.write('<img src=' + urll + '>');
+	document.getElementById('imgaa').src = urll;
+	console.log(document.getElementById('imgaa').src);
+	document.getElementById('st_exchange').innerText = dat2['exchange'];
+}
 
-
+function chart_url(val){
+	val = String(val);
+	urll = 'http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=858&height=392&showLastClose=1&headerType=quote&symbol=' + stock_name + '.NS&duration=' + val + '&lowers=volume&headertype=name';
+	return urll;
 }
