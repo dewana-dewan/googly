@@ -45,6 +45,12 @@ function display_stock(dat1, dat2){
 	document.getElementById('imgaa').src = urll;
 	console.log(document.getElementById('imgaa').src);
 	document.getElementById('st_exchange').innerText = dat2['exchange'];
+	document.getElementById('f_name').innerText = dat2['onAirName'];
+	document.getElementById('curr_price').innerText = dat2['last'];
+	document.getElementById('curr_price').innerText = dat2['last'];
+	document.getElementById('curr_price').innerText = dat2['last'];
+	document.getElementById('curr_price').innerText = dat2['last'];
+	
 }
 
 function chart_url(val){
