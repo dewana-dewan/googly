@@ -9,28 +9,33 @@
 	p{
 		display: inline;
 	}
+	#imgaa{
+		opacity: 1;
+		transition: opacity .2s;
+	}
 </style>
 </head>
 <body>
 	<center>
 		<b><h1>GOOGLY</h1></b>
-	</center>
+	<hr>
 	<h2 id="stock_name">{{stock_name}}</h2>
 	<img src="" id="imgaa">
-	<button class="chart_getter" value="10">op 1</button>
-	<button class="chart_getter" value="20">op 2</button>
-	<button class="chart_getter" value="50">op 3</button>
-	<button class="chart_getter" value="100">op 4</button>
-	<button class="chart_getter" value="200">op 5</button>
-
+	<br>
+	<button class="chart_getter" value="1">1 Day</button>
+	<button class="chart_getter" value="7">1 Week</button>
+	<button class="chart_getter" value="30">1 Month</button>
+	<button class="chart_getter" value="180">6 Months</button>
+	<button class="chart_getter" value="730">2 Years</button>
+	</center>
 	
 	<h3>
-		Stock_exchange:<p id="st_exchange"></p><br>
-		Full Name:<p id="f_name"></p><br>
-		Current Price:<p id="curr_price"></p><br>
-		Day's High:<b><p id="high"></p></b><br>
-		Day's Low:<b><p id="low"></p></b><br>
-		Percentage change:<b><p id="percenta"></p></b>
+		Stock_exchange: <p id="st_exchange"></p><br>
+		Full Name: <p id="f_name"></p><br>
+		Current Price: <p id="curr_price"></p><br>
+		Day's High: <b><p id="high"></p></b><br>
+		Day's Low: <b><p id="low"></p></b><br>
+		Change: <b><p id="changa"></p></b>
 	</h3>
 
 </body>

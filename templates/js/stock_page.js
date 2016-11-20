@@ -37,24 +37,40 @@ function start(argument) {
 			// document.getElementById('imgaa').src = result;
 		}
 	});
+	g_charts();
 };
 
 function display_stock(dat1, dat2){
-	urll = chart_url(20);
+	chart_url(20);
 	// document.write('<img src=' + urll + '>');
-	document.getElementById('imgaa').src = urll;
 	console.log(document.getElementById('imgaa').src);
 	document.getElementById('st_exchange').innerText = dat2['exchange'];
 	document.getElementById('f_name').innerText = dat2['onAirName'];
 	document.getElementById('curr_price').innerText = dat2['last'];
-	document.getElementById('curr_price').innerText = dat2['last'];
-	document.getElementById('curr_price').innerText = dat2['last'];
-	document.getElementById('curr_price').innerText = dat2['last'];
+	document.getElementById('high').innerText = dat2['high'];
+	document.getElementById('low').innerText = dat2['low'];
+	document.getElementById('changa').innerText = dat2['change'];
 	
 }
 
 function chart_url(val){
 	val = String(val);
-	urll = 'http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=858&height=392&showLastClose=1&headerType=quote&symbol=' + stock_name + '.NS&duration=' + val + '&lowers=volume&headertype=name';
-	return urll;
+	urll = 'http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=858&height=392&showLastClose=0&headerType=quote&symbol=' + stock_name + '.NS&duration=' + val + '&lowers=volume&headertype=name';
+	setTimeout( function(){
+		document.getElementById('imgaa').src = urll;
+		document.getElementById('imgaa').style.opacity = 1;
+	}, 400);
+	console.log('hi');
+}
+
+function g_charts(){
+	arr = document.getElementsByClassName('chart_getter');
+	for (var i = arr.length - 1; i >= 0; i--) {
+		v = arr[i].value;
+		arr[i].addEventListener("click",function(){
+			v = this.value;
+			document.getElementById('imgaa').style.opacity = 0;
+			chart_url(v);
+		});
+	}
 }
