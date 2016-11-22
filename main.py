@@ -119,17 +119,21 @@ class User(db.Model):
 # account details and related stuff
 # 
 conn = sqlite3.connect('account.db')
-conn.execute('''CREATE TABLE stocks
-                (
-                 uname TEXT PRIMARY KEY NOT NULL,
-                 stk_symbl TEXT NOT NULL,
-                 stk_qty INT NOT NULL,
-                 stk_price INT NOT NULL,
-                 datetimee CHAR(50) NOT NULL ) 
-                ''')
-inst = "INSERT INTO stocks VALUES ('adi','ONGC',10,100," + str(datetime.datetime.now()) + ")"
-conn.execute(inst)
-#conn.commit()
+# conn.execute('''CREATE TABLE stocks
+#                 (
+#                  uname TEXT PRIMARY KEY NOT NULL,
+#                  stk_symbl TEXT NOT NULL,
+#                  stk_qty INT NOT NULL,
+#                  stk_price INT NOT NULL,
+#                  time_stamp TIMESTAMP NOT NULL ) 
+#                 ''')
+t_now = datetime.datetime.now()
+c = conn.cursor()
+inst = "INSERT INTO stocks VALUES ('adi','ONGC',10,100,?)"
+conn.execute("INSERT INTO stocks VALUES ('adityad','ONGC',10,100,?)", (t_now,))
+conn.commit()
+conn.execute('SELECT * FROM stocks')
+print c.fetchall()
 #conn.commit()
 #functions for basic sign-up
 
@@ -208,7 +212,7 @@ class Welcome(BaseHandler):
         # self.username
         # if valid_username(username):
         if self.username != None:            
-            self.render('welcome.html', username = self.username)
+            self.render('welcome.html', username = c.fetchone())
         else:
             self.redirect('/sign_up')
 
