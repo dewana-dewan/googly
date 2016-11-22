@@ -56,10 +56,12 @@ function display_stock(dat1, dat2){
 function chart_url(val){
 	val = String(val);
 	urll = 'http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=858&height=392&showLastClose=0&headerType=quote&symbol=' + stock_name + '.NS&duration=' + val + '&lowers=volume&headertype=name';
-	setTimeout( function(){
-		document.getElementById('imgaa').src = urll;
+	img = new Image();
+	document.getElementById('imgaa').src = urll;
+	img.onload = function(){
 		document.getElementById('imgaa').style.opacity = 1;
-	}, 400);
+	};
+	img.src = urll;
 	console.log('hi');
 }
 

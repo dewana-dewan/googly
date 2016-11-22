@@ -5,8 +5,10 @@ import re
 import random
 import hashlib
 import hmac
+import sqlite3
 
 from google.appengine.ext import db
+import datetime
 
 #base template start
 
@@ -114,6 +116,21 @@ class User(db.Model):
 		if u and valid_pw(name, pw, u.pw_hash):
 			return u
 
+# account details and related stuff
+# 
+conn = sqlite3.connect('account.db')
+conn.execute('''CREATE TABLE stocks
+                (
+                 uname TEXT PRIMARY KEY NOT NULL,
+                 stk_symbl TEXT NOT NULL,
+                 stk_qty INT NOT NULL,
+                 stk_price INT NOT NULL,
+                 datetimee CHAR(50) NOT NULL ) 
+                ''')
+inst = "INSERT INTO stocks VALUES ('adi','ONGC',10,100," + str(datetime.datetime.now()) + ")"
+conn.execute(inst)
+#conn.commit()
+#conn.commit()
 #functions for basic sign-up
 
 USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
@@ -222,10 +239,24 @@ class SStock(BaseHandler):
 		sname = self.request.get('sname')
 		self.render('stock_page.html',stock_name=sname)
 
+class BuyS(BaseHandler):
+    def get(self):
+        c.execute("SELECT * FROM stocks")
+        dat = c.fetchone()
+        self.redirect('/welcome',username=dat)
+
+
+class SellS(BaseHandler):
+    def get(self):
+        self.redirect('/welcome');
+
+
 app = webapp2.WSGIApplication([
     ('/sign_up', SignUp),
     ('/login', Login),	
     ('/logout', LogOut),	
     ('/welcome', Welcome),
-    ('/stock_info', SStock)
+    ('/stock_info', SStock),
+    ('/buy_stk', BuyS),
+    ('/sell_stk', SellS)
 ], debug=True)
