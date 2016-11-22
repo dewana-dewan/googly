@@ -13,6 +13,12 @@
 		opacity: 1;
 		transition: opacity .2s;
 	}
+	table{
+		height:400px;
+	}
+	#st_img{
+		width: 860px
+	}
 
 </style>
 </head>
@@ -21,7 +27,19 @@
 		<b><h1>GOOGLY</h1></b>
 	<hr>
 	<h2 id="stock_name">{{stock_name}}</h2>
-	<img src="" id="imgaa">
+	<table>
+	<tr>
+		<th id="st_img"><img src="" id="imgaa"></th>
+		<th>
+			<form method="post">
+				<!-- <input type="text" name="sname" te> -->
+				<input type="number" name="qty" placeholder="Quantity">
+				<br><br>
+				<input type="submit" name="" value="Buy">
+			</form>
+		</th>
+	</tr>
+	</table>
 	<br>
 	<button class="chart_getter" value="1">1 Day</button>
 	<button class="chart_getter" value="7">1 Week</button>

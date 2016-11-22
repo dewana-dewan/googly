@@ -19,7 +19,7 @@ function start(argument) {
 			// var json = JSON.parse(data);
 			// console.log(json);
 	  		// document.body.innerHTML = json;
-	  		alert( "Load was performed." );
+	  		// alert( "Load was performed." );
 			}
 	});
 

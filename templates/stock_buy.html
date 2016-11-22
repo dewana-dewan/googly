@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Stock Arena</title>
+	<style type="text/css">
+		th, td {
+    		border-bottom: 1px solid #ddd;
+			padding: 8px;
+		}
+		tr:hover {background-color: #f5f5f5}
+		tr:nth-child(even) {background-color: #f2f2f2}
+		table {
+			width: 60%;
+			font-size: 15px;
+    		border-collapse: collapse;
+		}
+	</style>
+</head>
+<body>
+<div>
+	<center>
+		<table>
+		<tr>
+			<th>User Name</th>
+			<th>Stock Symbol</th>
+			<th>Quantity</th>
+			<th>Buy price</th>
+		</tr>
+		{% for stk_trans in stk_arr %}
+			<tr>
+				<td>{{stk_trans[0]}}</td>
+				<td>{{stk_trans[1]}}</td>
+				<td>{{stk_trans[2]}}</td>
+				<td>{{stk_trans[3]}}</td>
+			</tr>
+		{% endfor %}	
+		</table>
+	</center>
+</div>
+<form method="post">
+	<input type="text" name="sname">
+	<input type="number" name="qty">
+	<input type="submit" name="">
+</form>
+
+</body>
+</html>

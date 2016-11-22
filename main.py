@@ -121,7 +121,7 @@ class User(db.Model):
 conn = sqlite3.connect('account.db')
 # conn.execute('''CREATE TABLE stocks
 #                 (
-#                  uname TEXT PRIMARY KEY NOT NULL,
+#                  uname TEXT NOT NULL,
 #                  stk_symbl TEXT NOT NULL,
 #                  stk_qty INT NOT NULL,
 #                  stk_price INT NOT NULL,
@@ -129,10 +129,10 @@ conn = sqlite3.connect('account.db')
 #                 ''')
 t_now = datetime.datetime.now()
 c = conn.cursor()
-inst = "INSERT INTO stocks VALUES ('adi','ONGC',10,100,?)"
-conn.execute("INSERT INTO stocks VALUES ('adityad','ONGC',10,100,?)", (t_now,))
+inst = "INSERT INTO stocks VALUES ('test','TEST',10,100,?)"
+# conn.execute("INSERT INTO stocks VALUES ('test','TEST',10,100,?)", (t_now,))
 conn.commit()
-conn.execute('SELECT * FROM stocks')
+c.execute('SELECT * FROM stocks')
 print c.fetchall()
 #conn.commit()
 #functions for basic sign-up
@@ -246,8 +246,18 @@ class SStock(BaseHandler):
 class BuyS(BaseHandler):
     def get(self):
         c.execute("SELECT * FROM stocks")
-        dat = c.fetchone()
-        self.redirect('/welcome',username=dat)
+        dat = c.fetchall()
+        self.render('stock_buy.html',stk_arr=dat)
+    
+    def post(self):
+        sname = self.request.get('sname')
+        stk_qty = self.request.get('qty')
+        stk_price = 100;
+        t_now = datetime.datetime.now();
+        conn.execute("INSERT INTO stocks VALUES (?,?,?,?,?)", (self.username,sname,stk_qty,stk_price,t_now))
+        conn.commit()
+        self.write('success');
+
 
 
 class SellS(BaseHandler):
