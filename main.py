@@ -243,14 +243,13 @@ class SStock(BaseHandler):
 		sname = self.request.get('sname')
 		params ={}
 		params['stock_name']=sname
+		# c.execute("SELECT * FROM stocks where uname=?",(self.username,))
+		# dat = c.fetchall()
+		# self.render('stock_buy.html',stk_arr=dat)
 		c.execute("SELECT * FROM stocks where uname=? and stk_symbl=?",(self.username,sname))
 		dat = c.fetchone()
+		params['stk_arr']=dat
 		print(dat)
-		if(dat):
-			inf = "You have "+str(dat[2])+" stocks of "+str(dat[1])+" bought at " + str(dat[3])
-		else:
-			inf = "You have no stocks of this company"
-		params['important_info']=inf
 		self.render('stock_page.html',**params)
 	
 	def post(self):

@@ -45,7 +45,16 @@
 		Change: <b><p id="changa"></p></b>
 	</h3>
 	<hr>
-	<h3>{{important_info}}</h3>
+		{% if stk_arr %}
+			You have 
+			<p id="pr_qty">{{stk_arr[2]}}</p> stocks
+			of {{stk_arr[1]}} bought at Rs.<p id="pr_cst">{{stk_arr[3]}}</p> each.
+			<br>
+			Your current profit is <p id="profit"></p>
+		{% else %}
+			You have no stocks of this Company
+		{% endif %}
+
 	<table>
 		<tr>
 			<th>

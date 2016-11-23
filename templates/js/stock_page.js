@@ -1,5 +1,6 @@
 document.onLoad =	start();
 
+
 var dat1;
 var dat2;
 	
@@ -55,6 +56,21 @@ function display_stock(dat1, dat2){
 
 	
 }
+
+function display_profit(){
+	try{
+		pr_qty = parseInt(document.getElementById('pr_qty'));
+		pr_cst = parseInt(document.getElementById('pr_cst'));
+		tot_cst = pr_cst*pr_qty;
+		new_cst = pr_qty*dat2['last'];
+		profit = new_cst - tot_cst;
+		document.getElementById('profit').innerText = toString(profit);
+	}
+	catch(err){
+
+	}
+}
+
 
 function chart_url(val){
 	val = String(val);
