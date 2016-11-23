@@ -1,6 +1,5 @@
 document.onLoad =	start();
 
-
 var dat1;
 var dat2;
 	

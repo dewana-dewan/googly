@@ -247,6 +247,7 @@ class SStock(BaseHandler):
 		# dat = c.fetchall()
 		# self.render('stock_buy.html',stk_arr=dat)
 		c.execute("SELECT * FROM stocks where uname=? and stk_symbl=?",(self.username,sname))
+		global dat
 		dat = c.fetchone()
 		params['stk_arr']=dat
 		print(dat)
@@ -255,17 +256,31 @@ class SStock(BaseHandler):
 		self.render('stock_page.html',**params)
 	
 	def post(self):
+		global dat
 		req = self.request.get('req')
 		sname = self.request.get('sname')
 		stk_qty = self.request.get('qty')
+		stk_price = self.request.get('stk_valu')
+
 		print(req)
 		if(req == 'buy'):
 			print(req)
-			stk_price = self.request.get('stk_valu')
 			t_now = datetime.datetime.now()
 			conn.execute("INSERT INTO stocks VALUES (?,?,?,?,?)", (self.username,sname,stk_qty,stk_price,t_now))
 			conn.commit()
 			print('helo')
+		if (req == 'sell'):
+			if(int(stk_qty) > dat[2]):
+				print('naaah boy')
+			if(int(stk_qty) == int(dat[2])):
+				print('equal')
+				conn.execute("DELETE FROM stocks WHERE stk_symbl=?",(sname,))
+			else:
+				print('not hi')
+				tmp = int(dat[2]) - int(stk_qty)
+				conn.execute("UPDATE stocks SET stk_qty=? where stk_symbl=?",(tmp,sname))
+			conn.commit()
+
 		
 
 class BuyS(BaseHandler):

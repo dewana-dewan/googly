@@ -61,16 +61,19 @@
 		<form method="post">
 			<input type="text" name="req" value="buy" style="display:none" >
 			<input id="stk_valu1" type="text" name="stk_valu" style="display:none" >
-			<input type="text" name="sname"  >
-			<input type="number" name="qty">
-			<input type="submit" name="">
+			<input type="text" name="sname"  style="display:none">
+			<input type="number" name="qty" min="1">
+			<input type="submit" name="" >
 		</form>
+		<hr>
 		{% if sell_opt %}
+			<h3>SELL {{s_name}}</h3>
+			<h4>How many stocks would you like to buy</h4>
 			<form method="post">
-				<input id="stk_valu2" type="text" name="stk_valu" style="display:none" disabled>
-				<input type="text" name="req" value="sell" style="display:none" disabled value="{{stock_name}}">
+				<input type="text" name="req" value="sell" style="display:none" value="{{stock_name}}">
+				<input id="stk_valu2" type="text" name="stk_valu" style="display:none" >
 				<input type="text" name="sname" style="display:none">
-				<input type="number" name="qty">
+				<input type="number" name="qty" min="1" max="{{stk_arr[2]}}">
 				<input type="submit" name="">
 			</form>
 		{% endif %}
