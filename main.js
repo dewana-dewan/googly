@@ -3,5 +3,5 @@ const {app, BrowserWindow} = electron
 
 app.on('ready', () => {
 	let win = new BrowserWindow({width:800, height:600})
-	win.loadURL(`http://localhost:8080`)
+	win.loadURL(`file://${__dirname}/templates/login-form.html`)
 })
