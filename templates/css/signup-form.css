@@ -1,0 +1,64 @@
+html {
+	background: url(../../images/signup-background.png) no-repeat center center fixed;
+	background-size: cover;
+}
+
+body {
+	font-family: "Noto Sans";
+	text-align: right;
+}
+
+.googly-logo {
+	padding-top: 10px;
+}
+
+#logo {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin -right: 50px;
+	margin-left: 850px;
+	display: block;
+}
+
+#signup {
+	margin: 50px 120px 0px 0px;
+    font-size: 34px;
+    color: #606060;
+}
+
+p.cred {
+    text-align: left;
+    margin: 10px 0px 0px 650px;
+    font-size: 20px;
+    color: #404040;
+}
+
+.textbox {
+	text-align: left;
+	margin: 0px 0px 0px 650px;
+}
+
+input[type=text],[type=password]{
+	font-size: 20px;
+    border-radius: 4px;
+    border-color: powderblue;
+    border-width: 2px;
+    padding: 5px;
+}
+
+.error {
+	font-size: 16px;
+	color: red;
+}
+
+input[type=submit] {
+    margin-right: 400px;
+    margin-top: 20px;
+    font-size: 20px;
+    border: 0px;
+    padding: 5px 10px;
+    box-shadow: 0px 0px 6px;
+    border-radius: 7px;
+    background-color: powderblue;
+    color: #101010;
+}
