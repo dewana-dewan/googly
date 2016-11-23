@@ -1,5 +1,5 @@
 html {
-	background: url(../images/login-background.png) no-repeat center center fixed;
+	background: url(../../images/login-background.png) no-repeat center center fixed;
 	background-size: cover;
 }
 
@@ -57,6 +57,9 @@ body {
 	box-shadow: 0px 0px 0px 0px rgba(0,0,0,0); 
 }
 
+.button input:hover{
+	background-color: #00BFA5;
+}
 
 .text-box input{
   border-radius: 4px;
