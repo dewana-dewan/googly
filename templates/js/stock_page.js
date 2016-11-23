@@ -48,23 +48,25 @@ function display_stock(dat1, dat2){
 	document.getElementById('st_exchange').innerText = dat2['exchange'];
 	document.getElementById('f_name').innerText = dat2['onAirName'];
 	document.getElementById('curr_price').innerText = dat2['last'];
+	try{
 	document.getElementById('stk_valu1').value = dat2['last'];
 	document.getElementById('stk_valu2').value = dat2['last'];
+	}catch(err){}
 	document.getElementById('high').innerText = dat2['high'];
 	document.getElementById('low').innerText = dat2['low'];
 	document.getElementById('changa').innerText = dat2['change'];
-
+	display_profit();
 	
 }
 
 function display_profit(){
 	try{
-		pr_qty = parseInt(document.getElementById('pr_qty'));
-		pr_cst = parseInt(document.getElementById('pr_cst'));
+		pr_qty = document.getElementById('pr_qty').innerText;
+		pr_cst = document.getElementById('pr_cst').innerText;
 		tot_cst = pr_cst*pr_qty;
 		new_cst = pr_qty*dat2['last'];
 		profit = new_cst - tot_cst;
-		document.getElementById('profit').innerText = toString(profit);
+		document.getElementById('profit').innerText = Math.round(profit).toString();
 	}
 	catch(err){
 

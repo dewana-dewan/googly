@@ -55,36 +55,26 @@
 			You have no stocks of this Company
 		{% endif %}
 
-	<table>
-		<tr>
-			<th>
-				BUY
-			</th>
-			<th>
-				SELL
-			</th>
-		</tr>
-		<tr>
-			<td>
-				<form method="post">
-					<input type="text" name="req" value="buy" style="display:none" >
-					<input id="stk_valu1" type="text" name="stk_valu" style="display:none" >
-					<input type="text" name="sname" style="display:none" >
-					<input type="number" name="qty">
-					<input type="submit" name="">
-				</form>
-			</td>
-			<td>
-				<form method="post2">
-					<input id="stk_valu2" type="text" name="stk_valu" style="display:none" disabled>
-					<input type="text" name="req" value="sell" style="display:none" disabled value="{{stock_name}}">
-					<input type="text" name="sname">
-					<input type="number" name="qty">
-					<input type="submit" name="">
-				</form>
-			</td>
-		</tr>
-	</table>
+
+		<h3>BUY {{s_name}}</h3>
+		<h4>How many stocks would you like to buy</h4>
+		<form method="post">
+			<input type="text" name="req" value="buy" style="display:none" >
+			<input id="stk_valu1" type="text" name="stk_valu" style="display:none" >
+			<input type="text" name="sname"  >
+			<input type="number" name="qty">
+			<input type="submit" name="">
+		</form>
+		{% if sell_opt %}
+			<form method="post">
+				<input id="stk_valu2" type="text" name="stk_valu" style="display:none" disabled>
+				<input type="text" name="req" value="sell" style="display:none" disabled value="{{stock_name}}">
+				<input type="text" name="sname" style="display:none">
+				<input type="number" name="qty">
+				<input type="submit" name="">
+			</form>
+		{% endif %}
+
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

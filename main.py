@@ -250,6 +250,8 @@ class SStock(BaseHandler):
 		dat = c.fetchone()
 		params['stk_arr']=dat
 		print(dat)
+		if dat:
+			params['sell_opt'] = True
 		self.render('stock_page.html',**params)
 	
 	def post(self):
