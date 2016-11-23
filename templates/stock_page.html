@@ -13,9 +13,7 @@
 		opacity: 1;
 		transition: opacity .2s;
 	}
-	table{
-		height:400px;
-	}
+
 	#st_img{
 		width: 860px
 	}
@@ -27,19 +25,7 @@
 		<b><h1>GOOGLY</h1></b>
 	<hr>
 	<h2 id="stock_name">{{stock_name}}</h2>
-	<table>
-	<tr>
-		<th id="st_img"><img src="" id="imgaa"></th>
-		<th>
-			<form method="post">
-				<!-- <input type="text" name="sname" te> -->
-				<input type="number" name="qty" placeholder="Quantity">
-				<br><br>
-				<input type="submit" name="" value="Buy">
-			</form>
-		</th>
-	</tr>
-	</table>
+	<span id="st_img"><img src="" id="imgaa"></span>
 	<br>
 	<button class="chart_getter" value="1">1 Day</button>
 	<button class="chart_getter" value="7">1 Week</button>
@@ -48,8 +34,6 @@
 	<button class="chart_getter" value="730">2 Years</button>
 	</center>
 	<br>
-	<a href="/buy_stk"><button> BUY </button></a>
-	<a href="/sell_stk"><button> SELL </button></a>
 	<br>
 	
 	<h3>
@@ -60,7 +44,40 @@
 		Day's Low: <b><p id="low"></p></b><br>
 		Change: <b><p id="changa"></p></b>
 	</h3>
-	
+	<hr>
+		{% if stk_arr %}
+			You have 
+			<p id="pr_qty">{{stk_arr[2]}}</p> stocks
+			of {{stk_arr[1]}} bought at Rs.<p id="pr_cst">{{stk_arr[3]}}</p> each.
+			<br>
+			Your current profit is <p id="profit"></p>
+		{% else %}
+			You have no stocks of this Company
+		{% endif %}
+
+
+		<h3>BUY {{s_name}}</h3>
+		<h4>How many stocks would you like to buy</h4>
+		<form method="post">
+			<input type="text" name="req" value="buy" style="display:none" >
+			<input id="stk_valu1" type="text" name="stk_valu" style="display:none" >
+			<input type="text" name="sname"  style="display:none">
+			<input type="number" name="qty" min="1">
+			<input type="submit" name="" >
+		</form>
+		<hr>
+		{% if sell_opt %}
+			<h3>SELL {{s_name}}</h3>
+			<h4>How many stocks would you like to buy</h4>
+			<form method="post">
+				<input type="text" name="req" value="sell" style="display:none" value="{{stock_name}}">
+				<input id="stk_valu2" type="text" name="stk_valu" style="display:none" >
+				<input type="text" name="sname" style="display:none">
+				<input type="number" name="qty" min="1" max="{{stk_arr[2]}}">
+				<input type="submit" name="">
+			</form>
+		{% endif %}
+
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
