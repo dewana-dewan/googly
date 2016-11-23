@@ -246,18 +246,26 @@ class SStock(BaseHandler):
 		c.execute("SELECT * FROM stocks where uname=? and stk_symbl=?",(self.username,sname))
 		dat = c.fetchone()
 		print(dat)
-		inf = "you have "+str(dat[2])+" stocks of "+str(dat[1])+" bought at " + str(dat[3])
+		if(dat):
+			inf = "You have "+str(dat[2])+" stocks of "+str(dat[1])+" bought at " + str(dat[3])
+		else:
+			inf = "You have no stocks of this company"
 		params['important_info']=inf
 		self.render('stock_page.html',**params)
 	
 	def post(self):
+		req = self.request.get('req')
 		sname = self.request.get('sname')
 		stk_qty = self.request.get('qty')
-		stk_price = 100
-		t_now = datetime.datetime.now()
-		conn.execute("INSERT INTO stocks VALUES (?,?,?,?,?)", (self.username,sname,stk_qty,stk_price,t_now))
-		conn.commit()
-		self.write('success')
+		print(req)
+		if(req == 'buy'):
+			print(req)
+			stk_price = self.request.get('stk_valu')
+			t_now = datetime.datetime.now()
+			conn.execute("INSERT INTO stocks VALUES (?,?,?,?,?)", (self.username,sname,stk_qty,stk_price,t_now))
+			conn.commit()
+			print('helo')
+		
 
 class BuyS(BaseHandler):
 	def get(self):

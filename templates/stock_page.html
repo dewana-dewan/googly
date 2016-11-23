@@ -34,7 +34,6 @@
 	<button class="chart_getter" value="730">2 Years</button>
 	</center>
 	<br>
-	<a href="/sell_stk"><button> SELL </button></a>
 	<br>
 	
 	<h3>
@@ -59,17 +58,21 @@
 		<tr>
 			<td>
 				<form method="post">
-					<input type="text" name="sname">
+					<input type="text" name="req" value="buy" style="display:none" >
+					<input id="stk_valu1" type="text" name="stk_valu" style="display:none" >
+					<input type="text" name="sname" style="display:none" >
 					<input type="number" name="qty">
 					<input type="submit" name="">
 				</form>
 			</td>
 			<td>
-			<form method="post2">
-				<input type="text" name="sname">
-				<input type="number" name="qty">
-				<input type="submit" name="">
-			</form>
+				<form method="post2">
+					<input id="stk_valu2" type="text" name="stk_valu" style="display:none" disabled>
+					<input type="text" name="req" value="sell" style="display:none" disabled value="{{stock_name}}">
+					<input type="text" name="sname">
+					<input type="number" name="qty">
+					<input type="submit" name="">
+				</form>
 			</td>
 		</tr>
 	</table>

@@ -23,7 +23,7 @@ function start(argument) {
 			}
 	});
 
-	urlll = 'https://quote.cnbc.com/quote-html-webservice/quote.htm?output=jsonp&symbols=' + stock_name
+	urlll = 'https://quote.cnbc.com/quote-html-webservice/quote.htm?output=jsonp&symbols=' + stock_name +'.NS'
 	$.ajax({
 		url:urlll,
 		crossDomain:true,
@@ -47,9 +47,12 @@ function display_stock(dat1, dat2){
 	document.getElementById('st_exchange').innerText = dat2['exchange'];
 	document.getElementById('f_name').innerText = dat2['onAirName'];
 	document.getElementById('curr_price').innerText = dat2['last'];
+	document.getElementById('stk_valu1').value = dat2['last'];
+	document.getElementById('stk_valu2').value = dat2['last'];
 	document.getElementById('high').innerText = dat2['high'];
 	document.getElementById('low').innerText = dat2['low'];
 	document.getElementById('changa').innerText = dat2['change'];
+
 	
 }
 
