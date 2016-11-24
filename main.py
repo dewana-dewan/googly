@@ -6,6 +6,7 @@ import random
 import hashlib
 import hmac
 import sqlite3
+import urllib2
 
 from google.appengine.ext import db
 import datetime
@@ -55,7 +56,10 @@ class BaseHandler(webapp2.RequestHandler):
 
 		if uid != None:
 			uid = check_secure_val(uid)
-			self.username = User.by_id(int(uid)).name
+			if uid != None:
+				self.username = User.by_id(int(uid)).name
+			else:
+				self.username = None
 		else:
 			self.username = None
 
@@ -93,6 +97,7 @@ class User(db.Model):
 	name = db.StringProperty(required=True)
 	pw_hash = db.StringProperty(required=True)
 	email = db.StringProperty()
+	curr_balance = db.IntegerProperty(required=True)
 	
 
 	@classmethod
@@ -103,12 +108,14 @@ class User(db.Model):
 		u = User.all().filter('name =', name).get()
 		return u
 
+
 	@classmethod
 	def register(cls, name, pw, email = None):
 		pw_hash = make_pw_hash(name, pw)
 		return User(name = name,
 					pw_hash = pw_hash,
-					email = email)
+					email = email,
+					curr_balance = 0)
 	@classmethod
 	def login(cls, name, pw):
 		u = cls.by_name(name)
@@ -151,7 +158,12 @@ def valid_email(email):
 
 class SignUp(BaseHandler):
 	def get(self):
-		self.render('signup-form.html')
+		if self.username != None:
+			self.redirect('/welcome')
+			# if valid_username(self.username):
+			# self.render('welcome.html', username = self.username)
+		else:
+			self.render('signup-form.html')
 
 	def post(self):
 		uname = self.request.get('username')
@@ -207,19 +219,23 @@ class SignUp(BaseHandler):
 
 class Welcome(BaseHandler):
 	def get(self):
-		# username = self.request.cookies.get('name')
-		# asli_name = username.split('|')[0]
-		# self.username
-		# if valid_username(username):
-		if self.username != None:            
-			self.render('welcome.html', username = c.fetchone())
+		if self.username != None:
+			params = {}
+			params['username'] = self.username;
+			c.execute("SELECT * FROM stocks where uname=?",(self.username,))
+			dat = c.fetchall()
+			params['stk_arr'] = dat
+			u = User.by_name(self.username)
+			print(u.curr_balance)
+			params['current_balance'] = u.curr_balance 
+			self.render('welcome.html', **params)
 		else:
 			self.redirect('/sign_up')
 
 class Login(BaseHandler):
 	def get(self):
-		# if self.username != None:
-		# 	self.redirect('/welcome')
+		if self.username != None:
+			self.redirect('/welcome')
 		self.render('login-form.html')
 	
 	def post(self):
@@ -266,8 +282,13 @@ class SStock(BaseHandler):
 		if(req == 'buy'):
 			print(req)
 			t_now = datetime.datetime.now()
-			conn.execute("INSERT INTO stocks VALUES (?,?,?,?,?)", (self.username,sname,stk_qty,stk_price,t_now))
-			conn.commit()
+			u = User.by_name(self.username)
+			tot_cost = stk_qty * stk_price
+			if(u.curr_balance > tot_cost)
+				conn.execute("INSERT INTO stocks VALUES (?,?,?,?,?)", (self.username,sname,stk_qty,stk_price,t_now))
+				u.curr_balance = u.curr_balance - tot_cost
+				u.put()
+				conn.commit()
 			print('helo')
 		if (req == 'sell'):
 			if(int(stk_qty) > dat[2]):

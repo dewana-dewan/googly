@@ -5,6 +5,10 @@ threadsafe: true
 handlers:
 - url: /js
   static_dir: templates/js
+- url: /css
+  static_dir: templates/css
+- url: /images
+  static_dir: images/
 - url: /.*
   script: main.app
 
