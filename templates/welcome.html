@@ -1,11 +1,37 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <title>Welcome</title>
-  </head>
+	<head>
+		<title>Welcome</title>
+	</head>
 
-  <body>
-    <h2>Welcome, {{username}}!</h2>
-  </body>
+	<body>
+		<h2>Welcome, {{username}}!</h2>
+		<p id="hot-stocks">
+		</p>
+		<table>
+		<tr>
+			<th>Stock Symbol</th>
+			<th>Quantity</th>
+			<th>Buy price</th>
+		</tr>
+		{% for stk_trans in stk_arr %}
+			<tr>
+				<td>{{stk_trans[1]}}</td>
+				<td>{{stk_trans[2]}}</td>
+				<td>{{stk_trans[3]}}</td>
+			</tr>
+		{% endfor %}	
+		</table>
+		<div>
+			Your current balance is{{current_balance}}
+		</div>
+<!-- 	current account balance
+	name of user
+	top stocks
+	portfolio -->
+	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/welcome.js"></script>
+	<!-- <script src="/js/stock_page.js"></script> -->
 </html>

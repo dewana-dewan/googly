@@ -19,16 +19,15 @@
 <body>
 <div>
 	<center>
+	<h3>HI {{uname}}</h3>
 		<table>
 		<tr>
-			<th>User Name</th>
 			<th>Stock Symbol</th>
 			<th>Quantity</th>
 			<th>Buy price</th>
 		</tr>
 		{% for stk_trans in stk_arr %}
 			<tr>
-				<td>{{stk_trans[0]}}</td>
 				<td>{{stk_trans[1]}}</td>
 				<td>{{stk_trans[2]}}</td>
 				<td>{{stk_trans[3]}}</td>
@@ -37,11 +36,7 @@
 		</table>
 	</center>
 </div>
-<form method="post">
-	<input type="text" name="sname">
-	<input type="number" name="qty">
-	<input type="submit" name="">
-</form>
+
 
 </body>
 </html>
