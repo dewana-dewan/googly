@@ -277,29 +277,39 @@ class SStock(BaseHandler):
 		sname = self.request.get('sname')
 		stk_qty = self.request.get('qty')
 		stk_price = self.request.get('stk_valu')
-
+		u = User.by_name(self.username)
 		print(req)
 		if(req == 'buy'):
 			print(req)
 			t_now = datetime.datetime.now()
-			u = User.by_name(self.username)
-			tot_cost = stk_qty * stk_price
-			if(u.curr_balance > tot_cost)
+			tot_cost = int(stk_qty) * float(stk_price)
+			if(u.curr_balance > tot_cost):
 				conn.execute("INSERT INTO stocks VALUES (?,?,?,?,?)", (self.username,sname,stk_qty,stk_price,t_now))
-				u.curr_balance = u.curr_balance - tot_cost
+				u.curr_balance = int(u.curr_balance - tot_cost)
 				u.put()
 				conn.commit()
-			print('helo')
+				print('helo transaction done')
+				self.write('transaction complete')
+			else:
+				self.write('transaction not completed, you have insufficient funds')
+				# self.redirect('/welcome')
+
+			# else
 		if (req == 'sell'):
+			tot_cost = int(stk_qty) * float(stk_price)
 			if(int(stk_qty) > dat[2]):
 				print('naaah boy')
 			if(int(stk_qty) == int(dat[2])):
 				print('equal')
 				conn.execute("DELETE FROM stocks WHERE stk_symbl=?",(sname,))
+				u.curr_balance = int(u.curr_balance + tot_cost)
+				u.put()
 			else:
 				print('not hi')
 				tmp = int(dat[2]) - int(stk_qty)
+				u.curr_balance = int(u.curr_balance + tot_cost)
 				conn.execute("UPDATE stocks SET stk_qty=? where stk_symbl=?",(tmp,sname))
+				u.put()
 			conn.commit()
 
 		
