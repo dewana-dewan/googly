@@ -311,8 +311,8 @@ class SStock(BaseHandler):
 			else:
 				# self.render('regret.html')
 				# time.sleep(5)
-				self.redirect('/stock_info?sname='+ sname)
-				# self.redirect('/welcome')
+				# self.redirect('/stock_info?sname='+ sname)
+				self.redirect('/regret')
 
 			# else
 		if (req == 'sell'):
@@ -350,9 +350,9 @@ class BuyS(BaseHandler):
 
 
 
-class SellS(BaseHandler):
+class Regret(BaseHandler):
 	def get(self):
-		self.redirect('/welcome');
+		self.render('regret.html');
 
 
 app = webapp2.WSGIApplication([
@@ -362,5 +362,5 @@ app = webapp2.WSGIApplication([
 	('/welcome', Welcome),
 	('/stock_info', SStock),
 	('/buy_stk', BuyS),
-	('/sell_stk', SellS)
+	('/regret', Regret)
 ], debug=True)
