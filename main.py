@@ -285,18 +285,31 @@ class SStock(BaseHandler):
 			t_now = datetime.datetime.now()
 			tot_cost = int(stk_qty) * float(stk_price)
 			if(u.curr_balance > tot_cost):
-				conn.execute("INSERT INTO stocks VALUES (?,?,?,?,?)", (self.username,sname,stk_qty,stk_price,t_now))
 				u.curr_balance = int(u.curr_balance - tot_cost)
 				u.put()
-				conn.commit()
+				c.execute("SELECT * FROM stocks where uname=? and stk_symbl=?",(self.username,sname))
+				tmp = c.fetchone()
+
+				if tmp:
+					print('in if')
+					tmp2 = int(tmp[2])
+					tmp3 = float(tmp[3])
+					avg = ((tmp2 * tmp3) + int(stk_qty) * float(stk_price)) / (tmp2 + int(stk_qty))
+					print(tmp2 + int(stk_qty))
+					print("UPDATE stocks SET stk_qty=? and stk_price=? where stk_symbl=? and uname=?", ((tmp2 + int(stk_qty)), avg, sname, self.username, ))
+					conn.execute("UPDATE stocks SET stk_qty=?, stk_price=? where uname=? and stk_symbl=?", ((tmp2 + int(stk_qty)), avg, self.username, sname))
+					conn.commit()
+				else:
+					conn.execute("INSERT INTO stocks VALUES (?,?,?,?,?)", (self.username,sname,stk_qty,stk_price,t_now))
+					conn.commit()
 				print('helo transaction done')
 				# self.write('transaction complete')
-				self.render('success.html')
-				time.sleep(5)
+				# self.render('success.html')
+				# time.sleep(5)
 				self.redirect('/welcome')
 			else:
-				self.render('regret.html')
-				time.sleep(5)
+				# self.render('regret.html')
+				# time.sleep(5)
 				self.redirect('/stock_info?sname='+ sname)
 				# self.redirect('/welcome')
 
