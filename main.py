@@ -7,9 +7,10 @@ import hashlib
 import hmac
 import sqlite3
 import urllib2
+import time 
+import datetime
 
 from google.appengine.ext import db
-import datetime
 
 #base template start
 
@@ -289,9 +290,14 @@ class SStock(BaseHandler):
 				u.put()
 				conn.commit()
 				print('helo transaction done')
-				self.write('transaction complete')
+				# self.write('transaction complete')
+				self.render('success.html')
+				time.sleep(5)
+				self.redirect('/welcome')
 			else:
-				self.write('transaction not completed, you have insufficient funds')
+				self.render('regret.html')
+				time.sleep(5)
+				self.redirect('/stock_info?sname='+ sname)
 				# self.redirect('/welcome')
 
 			# else
