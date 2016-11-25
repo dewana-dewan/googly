@@ -300,6 +300,7 @@ class SStock(BaseHandler):
 					conn.execute("UPDATE stocks SET stk_qty=?, stk_price=? where uname=? and stk_symbl=?", ((tmp2 + int(stk_qty)), avg, self.username, sname))
 					conn.commit()
 				else:
+					print('hello world')
 					conn.execute("INSERT INTO stocks VALUES (?,?,?,?,?)", (self.username,sname,stk_qty,stk_price,t_now))
 					conn.commit()
 				print('helo transaction done')

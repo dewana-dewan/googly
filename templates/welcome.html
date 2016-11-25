@@ -5,34 +5,48 @@
 		<title>Welcome</title>
 		<link rel="stylesheet" type="text/css" href="slick/slick.css"/>
 		<link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
 		<link rel="stylesheet" type="text/css" href="css/welcome.css">
 	</head>
 
 	<body>
-		<h2>Welcome, {{username}}!</h2>
-		<div class="hot-stocks"></div>
-		<table>
-		<tr>
+	<nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo"><img src="images/image.png" style="max-width:100%; height:45px; margin:10px 5px"></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="#">Current Balance ₹{{current_balance}}</a></li>
+        <li><a href="logout">Logout</a></li>
+        <li><a href="#">Hi, {{username}}</a></li>
+      </ul>
+    </div>
+  </nav>
+	    <div class="hot-stocks" style="margin-top: 30px"></div>
+		<table class="highlight" id="mytable">
+		<thead>
 			<th>Stock Symbol</th>
 			<th>Quantity</th>
 			<th>Buy price</th>
-		</tr>
+			<th>Current price</th>
+			<th>Net </th>
+		</thead>
+		<tbody>
 		{% for stk_trans in stk_arr %}
-			<tr>
+			<tr class="company-row">
 				<td>{{stk_trans[1]}}</td>
 				<td>{{stk_trans[2]}}</td>
 				<td>{{stk_trans[3]}}</td>
+				<td></td>
+				<td></td>
 			</tr>
-		{% endfor %}	
+		{% endfor %}
+		</tbody>	
 		</table>
-		<div>
-			Your current balance is {{current_balance}}
-		</div>
 <!-- 	current account balance
 	name of user
 	top stocks
 	portfolio -->
 	</body>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script> -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script type="text/javascript" src="js/welcome.js"></script>
 	<script type="text/javascript" src="slick/slick.min.js"></script>
