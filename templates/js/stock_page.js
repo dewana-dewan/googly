@@ -23,7 +23,7 @@ function start(argument) {
 			}
 	});
 
-	urlll = 'https://quote.cnbc.com/quote-html-webservice/quote.htm?output=jsonp&symbols=' + stock_name +'.NS'
+	urlll = 'https://quote.cnbc.com/quote-html-webservice/quote.htm?output=jsonp&symbols=' + stock_name 
 	$.ajax({
 		url:urlll,
 		crossDomain:true,

@@ -4,7 +4,8 @@ var dat1;
 var dat2;
 
 function start(argument) {
-	var stock_name = 'ONGC.NS|ACC.NS|TCS.NS|TATASTEEL|TECHM|INFY|RELIANCE'
+	var stock_name = 'ONGC.NS|ACC.NS|TCS.NS|TISC.NS|TEML.NS|INFY|RELI.NS|BOB.NS|BFRG.NS|BHEL.NS|BPCL.NS|BRTI.NS|BHRI.NS|BOSH.NS|BRIT.NS|CADI.NS|CAST.NS|CIPL.NS|COAL.NS|DLF.NS|DABU.NS|REDY.NS|EICH.NS|GAIL.NS'
+
 	urlll = 'https://quote.cnbc.com/quote-html-webservice/quote.htm?output=jsonp&symbols=' + stock_name 
 	$.ajax({
 		url:urlll,
@@ -28,9 +29,14 @@ function start(argument) {
 			var tbod = table.getElementsByTagName("tbody");
 			var trow = tbod[0].getElementsByTagName("tr");
 			for (var i = trow.length - 1; i >= 0; i--) {
+				for (var j = dat2.length - 1; j >= 0; j--) {
 				var tdata = trow[i].getElementsByTagName("td");
-				tdata[4].innerHTML = parseFloat(tdata[2].innerHTML) * parseInt(tdata[1].innerHTML);
-				tdata[3].innerHTML = dat2[i]['last'];
+				console.log(dat2[j]['symbol'] + tdata[0].innerText)
+				if(dat2[j]['symbol'] == tdata[0].innerText){
+					tdata[3].innerHTML = dat2[j]['last'];
+					tdata[4].innerHTML = (parseFloat(tdata[3].innerHTML) - parseFloat(tdata[2].innerHTML)) * parseInt(tdata[1].innerHTML);
+				}
+				}
 			}	
 		}
 	});
@@ -51,6 +57,7 @@ function add_full_packet(){
 
 function create_packet(obja){
 	tmp0 = document.createElement('a');
+	tmp0.target = '_blank';
 	tmp0.href = "stock_info?sname=" + obja['symbol']
 	tmp0.className = "clink-link"
 	tmp1 = document.createElement('div');
