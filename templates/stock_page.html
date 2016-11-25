@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>{{stock_name}}</title>
-<style type="text/css">
+<!-- <style type="text/css">
 	#stock_name{
 		/*display: none;*/
 	}
@@ -18,12 +18,20 @@
 		width: 860px
 	}
 
-</style>
+</style> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
 </head>
 <body>
-	<center>
-		<b><h1>GOOGLY</h1></b>
-	<hr>
+	<nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo"><img src="images/image.png" style="max-width:100%; height:45px; margin:10px 5px"></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="#">Current Balance ₹{{current_balance}}</a></li>
+        <li><a href="logout">Logout</a></li>
+        <li><a href="#">Hi, {{username}}</a></li>
+      </ul>
+    </div>
+  </nav>
 	<h2 id="stock_name">{{stock_name}}</h2>
 	<!-- <span id="st_img"><img src="" id="imgaa"></span> -->
 	<br>

@@ -27,17 +27,17 @@
 			<th>Quantity</th>
 			<th>Buy price</th>
 			<th>Current price</th>
-			<th>Net </th>
+			<th>Net Gain</th>
 		</thead>
 		<tbody>
 		{% for stk_trans in stk_arr %}
-			<tr class="company-row">
-				<td>{{stk_trans[1]}}</td>
-				<td>{{stk_trans[2]}}</td>
-				<td>{{stk_trans[3]}}</td>
-				<td></td>
-				<td></td>
-			</tr>
+				<tr class="company-row">
+					<td><a href="stock_info?sname={{stk_trans[1]}}">{{stk_trans[1]}}</a></td>
+					<td>{{stk_trans[2]}}</td>
+					<td>{{stk_trans[3]}}</td>
+					<td></td>
+					<td></td>
+				</tr>
 		{% endfor %}
 		</tbody>	
 		</table>

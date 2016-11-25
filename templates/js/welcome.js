@@ -29,15 +29,20 @@ function start(argument) {
 			var tbod = table.getElementsByTagName("tbody");
 			var trow = tbod[0].getElementsByTagName("tr");
 			for (var i = trow.length - 1; i >= 0; i--) {
-				for (var j = dat2.length - 1; j >= 0; j--) {
 				var tdata = trow[i].getElementsByTagName("td");
-				console.log(dat2[j]['symbol'] + tdata[0].innerText)
-				if(dat2[j]['symbol'] == tdata[0].innerText){
-					tdata[3].innerHTML = dat2[j]['last'];
-					tdata[4].innerHTML = (parseFloat(tdata[3].innerHTML) - parseFloat(tdata[2].innerHTML)) * parseInt(tdata[1].innerHTML);
+				for (var j = dat2.length - 1; j >= 0; j--) {
+					console.log(dat2[j]['symbol'] + tdata[0].innerText)
+					if(dat2[j]['symbol'] == tdata[0].innerText){
+						tdata[3].innerHTML = dat2[j]['last'];
+						tdata[4].innerHTML = (parseFloat(tdata[3].innerHTML) - parseFloat(tdata[2].innerHTML)) * parseInt(tdata[1].innerHTML);
+					if(parseFloat(tdata[4]) < 0) 
+						tdata[4].style.backgroundColor = "#FF8A80";
+					else
+						tdata[4].style.backgroundColor = "#B2FF59";
+					}
 				}
-				}
-			}	
+			}
+
 		}
 	});
 

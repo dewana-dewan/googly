@@ -260,6 +260,9 @@ class SStock(BaseHandler):
 		sname = self.request.get('sname')
 		params ={}
 		params['stock_name']=sname
+		u = User.by_name(self.username)
+		params['current_balance'] = u.curr_balance
+		params['username'] = self.username
 		# c.execute("SELECT * FROM stocks where uname=?",(self.username,))
 		# dat = c.fetchall()
 		# self.render('stock_buy.html',stk_arr=dat)
