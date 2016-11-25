@@ -37,13 +37,13 @@ function start(argument) {
 			// document.getElementById('imgaa').src = result;
 		}
 	});
-	g_charts();
+	//g_charts();
 };
 
 function display_stock(dat1, dat2){
-	chart_url(20);
+	// chart_url(20);
 	// document.write('<img src=' + urll + '>');
-	console.log(document.getElementById('imgaa').src);
+	//console.log(document.getElementById('imgaa').src);
 	document.getElementById('st_exchange').innerText = dat2['exchange'];
 	document.getElementById('f_name').innerText = dat2['onAirName'];
 	document.getElementById('curr_price').innerText = dat2['last'];
@@ -73,26 +73,26 @@ function display_profit(){
 }
 
 
-function chart_url(val){
-	val = String(val);
-	urll = 'http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=858&height=392&showLastClose=0&headerType=quote&symbol=' + stock_name + '.NS&duration=' + val + '&lowers=volume&headertype=name';
-	img = new Image();
-	document.getElementById('imgaa').src = urll;
-	img.onload = function(){
-		document.getElementById('imgaa').style.opacity = 1;
-	};
-	img.src = urll;
-	console.log('hi');
-}
+// function chart_url(val){
+// 	val = String(val);
+// 	urll = 'http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=858&height=392&showLastClose=0&headerType=quote&symbol=' + stock_name + '.NS&duration=' + val + '&lowers=volume&headertype=name';
+// 	img = new Image();
+// 	// document.getElementById('imgaa').src = urll;
+// 	img.onload = function(){
+// 		document.getElementById('imgaa').style.opacity = 1;
+// 	};
+// 	img.src = urll;
+// 	console.log('hi');
+// }
 
-function g_charts(){
-	arr = document.getElementsByClassName('chart_getter');
-	for (var i = arr.length - 1; i >= 0; i--) {
-		v = arr[i].value;
-		arr[i].addEventListener("click",function(){
-			v = this.value;
-			document.getElementById('imgaa').style.opacity = 0;
-			chart_url(v);
-		});
-	}
-}
+// function g_charts(){
+// 	arr = document.getElementsByClassName('chart_getter');
+// 	for (var i = arr.length - 1; i >= 0; i--) {
+// 		v = arr[i].value;
+// 		arr[i].addEventListener("click",function(){
+// 			v = this.value;
+// 			document.getElementById('imgaa').style.opacity = 0;
+// 			chart_url(v);
+// 		});
+// 	}
+// }

@@ -1,0 +1,23 @@
+html {
+	background-color: #B2DFDB;
+}
+
+body {
+	font-family: "Roboto", sans-serif;
+}
+
+.company-plus {
+	color: #1B5E20;
+	text-align: center;
+	background-color: #B2FF59;
+	margin: 0 5px;
+	padding: 15px 5px;
+}
+
+.company-minus {
+	color: #B71C1C;
+	text-align: center;
+	background-color: #FF8A80;
+	margin: 0 5px;
+	padding: 15px 5px;
+}
