@@ -62,7 +62,7 @@ function add_full_packet(){
 
 function create_packet(obja){
 	tmp0 = document.createElement('a');
-	tmp0.target = '_blank';
+	// tmp0.target = '_blank';
 	tmp0.href = "stock_info?sname=" + obja['symbol']
 	tmp0.className = "clink-link"
 	tmp1 = document.createElement('div');

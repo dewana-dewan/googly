@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/dewana-dewan/googly/issues"
   },
-  "homepage": "https://github.com/dewana-dewan/googly#readme"
+  "homepage": "https://github.com/dewana-dewan/googly#readme",
+  "dependencies": {
+    "electron-proxy-agent": "^1.0.2"
+  }
 }

@@ -75,6 +75,14 @@
 	</div>
 
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="/js/stock_page.js"></script>
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+	<!-- normal script imports etc  -->
+	<script type="text/javascript" src="/js/jquery-3.1.1.min.js"></script>
+	<script src="/js/stock_page.js"></script>
+	<!-- <script type="text/javascript" src="js/welcome.js"></script>
+	 <script type="text/javascript" src="slick/slick.min.js"></script> -->
+
+	<!-- Insert this line after script imports -->
+	<script>if (window.module) module = window.module;</script>
 </html>
