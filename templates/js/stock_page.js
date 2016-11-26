@@ -5,23 +5,23 @@ var dat2;
 	
 function start(argument) {
 	stock_name = document.getElementById('stock_name').innerHTML;
-	urll = 'https://finance.google.com/finance/info?client=ig&q=NSE:' + stock_name
-	change = '//'
-	$.ajax({ 
-		url:urll, 
-		crossDomain:true,
-	    dataType:'jsonp',
-		headers:{'Access-Control-Allow-Origin':'*'},
-		success:function( data ) {
-			// data = data.replace(change,'');
-			dat1 = data[0];
-			console.log(data[0]);
-			// var json = JSON.parse(data);
-			// console.log(json);
-	  		// document.body.innerHTML = json;
-	  		// alert( "Load was performed." );
-			}
-	});
+	// urll = 'https://finance.google.com/finance/info?client=ig&q=NSE:' + stock_name
+	// change = '//'
+	// $.ajax({ 
+	// 	url:urll, 
+	// 	crossDomain:true,
+	//     dataType:'jsonp',
+	// 	headers:{'Access-Control-Allow-Origin':'*'},
+	// 	success:function( data ) {
+	// 		// data = data.replace(change,'');
+	// 		dat1 = data[0];
+	// 		console.log(data[0]);
+	// 		// var json = JSON.parse(data);
+	// 		// console.log(json);
+	//   		// document.body.innerHTML = json;
+	//   		// alert( "Load was performed." );
+	// 		}
+	// });
 
 	urlll = 'https://quote.cnbc.com/quote-html-webservice/quote.htm?output=jsonp&symbols=' + stock_name 
 	$.ajax({
@@ -32,7 +32,8 @@ function start(argument) {
 		success: function(result) {
 			dat2 = result['QuickQuoteResult']['QuickQuote']
 			console.log(dat2);
-			display_stock(dat1, dat2)
+			display_stock(dat1, dat2);
+			display_profit();
 			// document.write('<img src=' + result + '>');
 			// document.getElementById('imgaa').src = result;
 		}
@@ -45,15 +46,17 @@ function display_stock(dat1, dat2){
 	// document.write('<img src=' + urll + '>');
 	//console.log(document.getElementById('imgaa').src);
 	document.getElementById('st_exchange').innerText = dat2['exchange'];
-	document.getElementById('f_name').innerText = dat2['onAirName'];
-	document.getElementById('curr_price').innerText = dat2['last'];
+	document.getElementById('f_name').innerHTML = dat2['onAirName'];
+	document.getElementById('short_name').innerHTML = dat2['shortName']
+	//document.getElementById('curr_price').innerText = dat2['last'];
 	try{
 	document.getElementById('stk_valu1').value = dat2['last'];
 	document.getElementById('stk_valu2').value = dat2['last'];
+	document.getElementById('sh_name').innerHTML = dat2['shortName'];
 	}catch(err){}
-	document.getElementById('high').innerText = dat2['high'];
-	document.getElementById('low').innerText = dat2['low'];
-	document.getElementById('changa').innerText = dat2['change'];
+	//document.getElementById('high').innerText = dat2['high'];
+	// document.getElementById('low').innerText = dat2['low'];
+	// document.getElementById('changa').innerText = dat2['change'];
 	display_profit();
 	
 }

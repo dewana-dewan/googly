@@ -2,92 +2,77 @@
 <html>
 <head>
 	<title>{{stock_name}}</title>
-<!-- <style type="text/css">
-	#stock_name{
-		/*display: none;*/
-	}
-	p{
-		display: inline;
-	}
-	#imgaa{
-		opacity: 1;
-		transition: opacity .2s;
-	}
-
-	#st_img{
-		width: 860px
-	}
-
-</style> -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="css/stock-page.css">
 </head>
 <body>
+	<div class="navbar-fixed">
 	<nav>
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo"><img src="images/image.png" style="max-width:100%; height:45px; margin:10px 5px"></a>
+      <a href="/welcome" class="brand-logo"><img src="images/image.png" style="max-width:100%; height:45px; margin:10px 5px"></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="#">Current Balance ₹{{current_balance}}</a></li>
         <li><a href="logout">Logout</a></li>
-        <li><a href="#">Hi, {{username}}</a></li>
+        <li><a href="/welcome">Hi, {{username}}</a></li>
       </ul>
     </div>
   </nav>
-	<h2 id="stock_name">{{stock_name}}</h2>
+  </div>
+  <div id="names">
+	<p id="f_name"></p>
+	<p id="short_name"></p>
+	<p id="stock_name">{{stock_name}}</p>
+	<p id="st_exchange"></p>
+  </div>
 	<!-- <span id="st_img"><img src="" id="imgaa"></span> -->
-	<br>
-	<iframe src="http://apps.cnbc.com/company/quote/newindex.asp?symbol={{stock_name}}" width="655px" height= "320px" style="box-shadow: 0px 0px 10px 2px"></iframe>
+	<div class="iframe-wrapper">
+	<iframe src="http://apps.cnbc.com/company/quote/newindex.asp?symbol={{stock_name}}" width="655px" height= "320px"></iframe>
+	</div>
 	<!-- <button class="chart_getter" value="1">1 Day</button>
 	<button class="chart_getter" value="7">1 Week</button>
 	<button class="chart_getter" value="30">1 Month</button>
 	<button class="chart_getter" value="180">6 Months</button>
 	<button class="chart_getter" value="730">2 Years</button>
-	 -->
-	</center>
-	<br>
-	<br>
-	
-	<h3>
-		Stock_exchange: <p id="st_exchange"></p><br>
-		Full Name: <p id="f_name"></p><br>
+	 -->	
+	<h3 style="display:none">
 		Current Price: <p id="curr_price"></p><br>
 		Day's High: <b><p id="high"></p></b><br>
 		Day's Low: <b><p id="low"></p></b><br>
 		Change: <b><p id="changa"></p></b>
 	</h3>
-	<hr>
+	<div class="info">
 		{% if stk_arr %}
-			You have 
-			<p id="pr_qty">{{stk_arr[2]}}</p> stocks
-			of {{stk_arr[1]}} bought at Rs.<p id="pr_cst">{{stk_arr[3]}}</p> each.
-			<br>
-			Your current profit is <p id="profit"></p>
+			<p id="pr_info">You have <span id="pr_qty">{{stk_arr[2]}}</span> stocks of <span id="sh_name"></span> bought at ₹<span id="pr_cst">{{stk_arr[3]}}</span> each.</p>
+			<p>Your current profit is <span id="profit"></span>.</p>
 		{% else %}
 			You have no stocks of this Company
 		{% endif %}
-
-
-		<h3>BUY {{s_name}}</h3>
-		<h4>How many stocks would you like to buy</h4>
+	</div>
+	<div id
+	<div class="buy">
+		<p class="heading">BUY</p>
+		<p>No. of stocks</p>
 		<form method="post">
 			<input type="text" name="req" value="buy" style="display:none" >
 			<input id="stk_valu1" type="text" name="stk_valu" style="display:none" >
 			<input type="text" name="sname"  style="display:none">
-			<input type="number" name="qty" min="1">
-			<input type="submit" name="" >
+			<input type="number" name="qty" min="1" class="textbox">
+			<input type="submit" name="" class="button">
 		</form>
-		<hr>
+	</div>
+	<div class="sell">
 		{% if sell_opt %}
-			<h3>SELL {{s_name}}</h3>
-			<h4>How many stocks would you like to buy</h4>
+			<p class='heading'>SELL</p>
+			<p>No. of stocks</p>
 			<form method="post">
 				<input type="text" name="req" value="sell" style="display:none" value="{{stock_name}}">
 				<input id="stk_valu2" type="text" name="stk_valu" style="display:none" >
 				<input type="text" name="sname" style="display:none">
-				<input type="number" name="qty" min="1" max="{{stk_arr[2]}}">
-				<input type="submit" name="">
+				<input type="number" name="qty" min="1" max="{{stk_arr[2]}}" class="textbox">
+				<input type="submit" name="" class="button">
 			</form>
 		{% endif %}
-
+	</div>
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
