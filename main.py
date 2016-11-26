@@ -334,6 +334,7 @@ class SStock(BaseHandler):
 				conn.execute("UPDATE stocks SET stk_qty=? where stk_symbl=?",(tmp,sname))
 				u.put()
 			conn.commit()
+			self.redirect('/welcome')
 
 		
 
