@@ -4,6 +4,7 @@
   <head>
     <title>Sign Up</title>
     <link rel="stylesheet" type="text/css" href="css/signup-form.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   </head>
 
   <body>
@@ -12,26 +13,26 @@
     <form method="post">
       <p class="cred">Username</p>
       <div class="textbox">
-        <input type="text" name="username" value="{{username}}">
+        <input type="text" name="username" value="{{username}}" placeholder="User Name">
         <span class="error">{{error_username}}</span>
       </div>
       <p class="cred">Password</p>
       <div class="textbox">
-        <input type="password" name="password" value="">
+        <input type="password" name="password" value="" placeholder="Password">
         <span class="error">{{error_password}}</span>
       </div>
       <p class="cred">Verify Password</p>
       <div class="textbox">
-        <input type="password" name="verify" value="">
+        <input type="password" name="verify" value="" placeholder="Verify Password">
         <span class="error">{{error_verify}}</span>
       </div>
       <p class="cred">Email (optional)</p>
       <div class="textbox">
-        <input type="text" name="email" value="{{email}}">
+        <input type="text" name="email" value="{{email}}" placeholder="Email">
         <span class="error">{{error_email}}</span>
       </div>
       <div id="submit-button"><input type="submit" value="Register"></div>
     </form>
-    <div style="margin-top: 10px"><a href="login" style="margin-right: 400px;">Already have an account? Login!</a></div>
+    <div style="margin-top: 10px"><a id="login_link" href="login" style="margin-right: 290px;">Already have an account? Login!</a></div>
   </body> 
 </html>

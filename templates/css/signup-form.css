@@ -4,7 +4,7 @@ html {
 }
 
 body {
-	font-family: "Roboto", sans-serif;
+	font-family: 'Roboto', sans-serif;
 	text-align: right;
 }
 
@@ -21,15 +21,15 @@ body {
 }
 
 #signup {
-	margin: 50px 120px 0px 0px;
+	margin: 40px 170px 30px 0px;
     font-size: 34px;
     color: #606060;
 }
 
 p.cred {
     text-align: left;
-    margin: 10px 0px 0px 650px;
-    font-size: 20px;
+    margin: 10px 0px 3px 650px;
+    font-size: 15px;
     color: #404040;
 }
 
@@ -39,11 +39,12 @@ p.cred {
 }
 
 input[type=text],[type=password]{
-	font-size: 20px;
-    border-radius: 4px;
+	font-size: 15px;
+    border-radius: 0px;
     border-color: powderblue;
     border-width: 2px;
-    padding: 5px;
+    padding: 6px
+    /*padding: 5px;*/
 }
 
 .error {
@@ -52,13 +53,20 @@ input[type=text],[type=password]{
 }
 
 input[type=submit] {
-    margin-right: 400px;
+    margin-right: 342px;
     margin-top: 20px;
     font-size: 20px;
-    border: 0px;
-    padding: 5px 10px;
-    box-shadow: 0px 0px 6px;
-    border-radius: 7px;
+    border: 2px solid white;
+    padding: 8px 25px;
+    /*box-shadow: 0px 0px 6px;*/
+    /*border-radiuss: 7px;*/
     background-color: powderblue;
-    color: #101010;
+    color: teal;
+    transition: all .3s;
+}
+
+input[type=submit]:hover {
+    color: teal;
+    background-color: white;
+    border: 2px solid lightblue;
 }
