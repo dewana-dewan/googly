@@ -4,7 +4,7 @@ const {app, BrowserWindow} = electron
 var http = require('http');
 var https = require('http');
 var ElectronProxyAgent = require('electron-proxy-agent');
- var session = require('session').defaultSession;
+var session = require('session').defaultSession;
  
 // use ElectronProxyAgent as http and https globalAgents 
 http.globalAgent = https.globalAgent = new ElectronProxyAgent(session);

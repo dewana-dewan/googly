@@ -231,7 +231,7 @@ class Welcome(BaseHandler):
 			params['current_balance'] = u.curr_balance 
 			self.render('welcome.html', **params)
 		else:
-			self.redirect('/sign_up')
+			self.redirect('/login')
 
 class Login(BaseHandler):
 	def get(self):
