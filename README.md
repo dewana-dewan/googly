@@ -2,9 +2,9 @@
   <img  height="200" src="https://github.com/dewana-dewan/googly/blob/master/images/image.png" />
 </p>
 
-##An investment portfolio management software. Built in python with sqlite3 over Google app engine.
+## An investment portfolio management software. Built in python with sqlite3 over Google app engine.
 
-###Installation
+### Installation
 - First install Google App Engine, head [here](https://cloud.google.com/appengine/docs/standard/python/quickstart) for details.
 ```
 dev_appserver.py ./
@@ -17,10 +17,10 @@ dev_appserver.py --port 8000 ./
 Google app engine doesn't support SQLite3 as of now, so we have to use a work around.
 You add SQLite3 in the list of allowed modules in the sandbox.py.(head [here](http://stackoverflow.com/questions/16757013/os-x-appengine-importerror-no-module-named-sqlite3) for details)
 
-###Screenshots
+### Screenshots
 
-####Home Page
+#### Home Page
 ![screen1](https://github.com/dewana-dewan/googly/blob/master/images/screen1.png?raw=true "Home Page")
 
-####A stock's page
+#### A stock's page
 ![screen2](https://github.com/dewana-dewan/googly/blob/master/images/screen2.png?raw=true "Stock Page")
