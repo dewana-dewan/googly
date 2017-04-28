@@ -14,6 +14,7 @@
         <li><a href="welcome">Current Balance ₹{{current_balance}}</a></li>
         <li><a href="logout">Logout</a></li>
         <li><a href="/welcome">Hi, {{username}}</a></li>
+        <li><a href="/history?sname={{stock_name}}">History</a></li>
       </ul>
     </div>
   </nav>
@@ -33,7 +34,7 @@
 	<button class="chart_getter" value="30">1 Month</button>
 	<button class="chart_getter" value="180">6 Months</button>
 	<button class="chart_getter" value="730">2 Years</button>
-	 -->	
+	 -->
 	<h3 style="display:none">
 		Current Price: <p id="curr_price"></p><br>
 		Day's High: <b><p id="high"></p></b><br>
