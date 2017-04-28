@@ -330,7 +330,7 @@ class SStock(BaseHandler):
 					conn.commit()
 				else:
 					print('hello world')
-					conn.execute("INSERT INTO stocks VALUES (?,?,?,?,?,?)", (self.username,sname,stk_qty,stk_price,t_now))
+					conn.execute("INSERT INTO stocks VALUES (?,?,?,?,?)", (self.username,sname,stk_qty,stk_price,t_now))
 					conn.commit()
 				print('helo transaction done')
 				# self.write('transaction complete')
