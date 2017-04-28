@@ -135,9 +135,20 @@ conn = sqlite3.connect('account.db')
 #                  stk_price INT NOT NULL,
 #                  time_stamp TIMESTAMP NOT NULL ) 
 #                 ''')
+# conn.execute('''
+# 	CREATE TABLE transactionRequests
+# 	(
+# 		uname TEXT NOT NULL,
+# 		stk_qty INT NOT NULL,
+# 		stk_symbl TEXT NOT NULL,
+# 		stk_price INT NOT NULL,
+# 		time_stamp TIMESTAMP NOT NULL,
+# 		status TEXT,
+# 		PRIMARY KEY(uname, time_stamp))
+# 	''')
 t_now = datetime.datetime.now()
 c = conn.cursor()
-inst = "INSERT INTO stocks VALUES ('test','TEST',10,100,?)"
+# inst = "INSERT INTO stocks VALUES ('test','TEST',10,100,?)"
 # conn.execute("INSERT INTO stocks VALUES ('test','TEST',10,100,?)", (t_now,))
 conn.commit()
 c.execute('SELECT * FROM stocks')
@@ -216,7 +227,22 @@ class SignUp(BaseHandler):
 				# self.login(u)
 				# self.redirect('/blog')
 
-
+class History(BaseHandler):
+	def get(self):
+		if self.username != None:
+			params = {}
+			sname = self.request.get('sname')
+			c.execute("SELECT * from transactionRequests where uname=? and stk_symbl=?",(self.username, sname))
+			params['stk_arr'] = c.fetchall()
+			params['sname'] = sname
+			params['username'] = self.username
+			u = User.by_name(self.username)
+			print(u.curr_balance)
+			params['current_balance'] = u.curr_balance
+			print(params) 
+			self.render('history.html', **params)
+		else:
+			self.redirect('/login')
 
 class Welcome(BaseHandler):
 	def get(self):
@@ -292,7 +318,7 @@ class SStock(BaseHandler):
 				u.put()
 				c.execute("SELECT * FROM stocks where uname=? and stk_symbl=?",(self.username,sname))
 				tmp = c.fetchone()
-
+				conn.execute("INSERT INTO transactionRequests VALUES (?,?,?,?,?,?)", (self.username,stk_qty,sname,stk_price,t_now,"BUY--SUCCESS"))
 				if tmp:
 					print('in if')
 					tmp2 = int(tmp[2])
@@ -304,7 +330,7 @@ class SStock(BaseHandler):
 					conn.commit()
 				else:
 					print('hello world')
-					conn.execute("INSERT INTO stocks VALUES (?,?,?,?,?)", (self.username,sname,stk_qty,stk_price,t_now))
+					conn.execute("INSERT INTO stocks VALUES (?,?,?,?,?,?)", (self.username,sname,stk_qty,stk_price,t_now))
 					conn.commit()
 				print('helo transaction done')
 				# self.write('transaction complete')
@@ -315,20 +341,26 @@ class SStock(BaseHandler):
 				# self.render('regret.html')
 				# time.sleep(5)
 				# self.redirect('/stock_info?sname='+ sname)
+				conn.execute("INSERT INTO transactionRequests VALUES (?,?,?,?,?,?)", (self.username,stk_qty,sname,stk_price,t_now,"BUY--FAILED"))
+				conn.commit()
 				self.redirect('/regret')
 
 			# else
 		if (req == 'sell'):
+			t_now = datetime.datetime.now()
 			tot_cost = int(stk_qty) * float(stk_price)
 			if(int(stk_qty) > dat[2]):
+				conn.execute("INSERT INTO transactionRequests VALUES (?,?,?,?,?,?)", (self.username,stk_qty,sname,stk_price,t_now,"SELL--FAILED"))
 				print('naaah boy')
 			if(int(stk_qty) == int(dat[2])):
 				print('equal')
+				conn.execute("INSERT INTO transactionRequests VALUES (?,?,?,?,?,?)", (self.username,stk_qty,sname,stk_price,t_now,"SELL--FAILED"))
 				conn.execute("DELETE FROM stocks WHERE stk_symbl=?",(sname,))
 				u.curr_balance = int(u.curr_balance + tot_cost)
 				u.put()
 			else:
 				print('not hi')
+				conn.execute("INSERT INTO transactionRequests VALUES (?,?,?,?,?,?)", (self.username,stk_qty,sname,stk_price,t_now,"SELL--SUCCESS"))
 				tmp = int(dat[2]) - int(stk_qty)
 				u.curr_balance = int(u.curr_balance + tot_cost)
 				conn.execute("UPDATE stocks SET stk_qty=? where stk_symbl=?",(tmp,sname))
@@ -336,7 +368,6 @@ class SStock(BaseHandler):
 			conn.commit()
 			self.redirect('/welcome')
 
-		
 
 class BuyS(BaseHandler):
 	def get(self):
@@ -364,6 +395,7 @@ app = webapp2.WSGIApplication([
 	('/login', Login),	
 	('/logout', LogOut),	
 	('/welcome', Welcome),
+	('/history', History),
 	('/stock_info', SStock),
 	('/buy_stk', BuyS),
 	('/regret', Regret)

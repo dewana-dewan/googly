@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Welcome</title>
+		<link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+		<link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="css/stock-page.css">
+		<link rel="stylesheet" type="text/css" href="css/welcome.css">
+	</head>
+	<style type="text/css">
+		#mytable{
+			width: 95%;
+			margin:30px;
+			border:1px solid lightgrey;
+		}
+	</style>
+	<body>
+	<div class="navbar-fixed">
+	<nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo"><img src="images/image.png" style="max-width:100%; height:45px; margin:10px 5px"></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="welcome">Current Balance ₹{{current_balance}}</a></li>
+        <li><a href="logout">Logout</a></li>
+        <li><a href="welcome">Hi, {{username}}</a></li>
+      </ul>
+    </div>
+  </nav>
+  </div>
+	    <div class="hot-stocks" style="margin-top: 30px"></div>
+		<table class="highlight" id="mytable">
+		<div class="iframe-wrapper">
+			<iframe src="http://apps.cnbc.com/company/quote/newindex.asp?symbol={{sname}}" width="655px" height= "320px"></iframe>
+		</div>
+		<thead>
+			<th>Time</th>
+			<th>Quantity</th>
+			<th>Buy price</th>
+			<th>Status</th>
+		</thead>
+		<tbody>
+		{% for stk_trans in stk_arr %}
+				<tr class="company-row">
+					<td>{{stk_trans[4]}}</td>
+					<td>{{stk_trans[1]}}</td>
+					<td>{{stk_trans[3]}}</td>
+					<td>{{stk_trans[5]}}</td>
+				</tr>
+		{% endfor %}
+		</tbody>	
+		</table>
+<!-- 	current account balance
+	name of user
+	top stocks
+	portfolio -->
+	</body>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script> -->
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+	<!-- normal script imports etc  -->
+	<script type="text/javascript" src="/js/jquery-3.1.1.min.js"></script>
+	<!-- <script type="text/javascript" src="js/welcome.js"></script> -->
+	<script type="text/javascript" src="slick/slick.min.js"></script>
+
+	<!-- Insert this line after script imports -->
+	<script>if (window.module) module = window.module;</script>
+	<!-- <script src="/js/stock_page.js"></script> -->
+</html>
