@@ -1,14 +1,14 @@
+import hmac
+import sqlite3
+import urllib2
+import time 
+import datetime
 import webapp2
 import jinja2
 import os
 import re
 import random
 import hashlib
-import hmac
-import sqlite3
-import urllib2
-import time 
-import datetime
 
 from google.appengine.ext import db
 
@@ -71,6 +71,7 @@ secret='hiiis'
 letters='abcdefghijklmnopqrstuvwxyz'
 
 #hashing and salt stuff
+
 def make_salt(length = 5):
 	return ''.join(random.choice(letters) for x in xrange(length))
 
