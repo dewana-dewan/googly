@@ -14,7 +14,7 @@ dev_appserver.py ./
 ```
 dev_appserver.py --port 8000 ./
 ```
-Google app engine doesn't support SQLite3 as of now, so we have to use a work around.
+Google App Engine doesn't support SQLite3 as of now, so we have to use a work around.
 You add SQLite3 in the list of allowed modules in the sandbox.py.(head [here](http://stackoverflow.com/questions/16757013/os-x-appengine-importerror-no-module-named-sqlite3) for details)
 
 ### Screenshots
