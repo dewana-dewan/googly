@@ -2,7 +2,7 @@
   <img  height="200" src="https://github.com/dewana-dewan/googly/blob/master/images/image.png" />
 </p>
 
-## An investment portfolio management software. Built in python with sqlite3 over Google app engine.
+## An investment portfolio management software. Built in python with SQLite3 over Google App Engine.
 
 ### Installation
 - First install Google App Engine, head [here](https://cloud.google.com/appengine/docs/standard/python/quickstart) for details.
